@@ -120,10 +120,12 @@ function LandingPage() {
       </Typography>
       {authFlow.status == 'authenticated' ? (
         <Container>
+          <Typography variant="body1">You are signed in</Typography>
           <Button variant='text' onClick={() => handleSignout()}>Sign out</Button>
         </Container>
       ) : (
         <Container>
+          <Typography variant="body1">You are signed out</Typography>
           <Button variant='text' onClick={() => handleLoginClick()}>Login</Button>
         </Container>
       )}
