@@ -1,0 +1,35 @@
+{
+    "name": "Person Name",
+    "role": "Student at Ohio State University",
+    "aboutMe": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "profileImgPath": "/img/landingImage.jpg",
+    "linkedinURL": "https://linkedin.com",
+    "githubURL": "https://github.com",
+    "resumePath": "cv.pdf",
+    "email": "buckeye.1@osu.edu",
+    "phone": "123-456-7890",
+    "handshake": "https://handshake.com",
+    "socialMedia": "https://twitter.com",
+    "experiences": [
+        {
+            "title": "Title",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "date": "MM/DD/YY"
+        },
+        {
+            "title": "Title",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "date": "MM/DD/YY"
+        },
+        {
+            "title": "Title",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "date": "MM/DD/YY"
+        },
+        {
+            "title": "Title",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "date": "MM/DD/YY"
+        }
+    ]
+}
