@@ -1,29 +1,8 @@
 import { Box, Container, Grid, Stack, Typography, useTheme } from "@mui/material";
 import PropTypes from "prop-types";
+import content from '../content.json'
 
 // Changes to the expereinces array affects the experiences view
-const experiences = [
-  {
-    "title": "Title",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "date": "MM/DD/YY",
-  },
-  {
-    "title": "Title",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "date": "MM/DD/YY",
-  },
-  {
-    "title": "Title",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "date": "MM/DD/YY",
-  },
-  {
-    "title": "Title",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "date": "MM/DD/YY",
-  },
-];
 
 function Experience({title, description, date, flip}) {
   // useTheme() gives this component the theme. We will use it to get the primary color
@@ -88,7 +67,7 @@ function ExperiencesPage() {
       <Box position={'relative'} mb={30}>
         <Stack spacing={20} sx={{mt: 10}}>
           {
-            experiences.map(({title, description, date}, i) => (
+            content.experiences.map(({title, description, date}, i) => (
               <Experience
                 title={title}
                 description={description}
