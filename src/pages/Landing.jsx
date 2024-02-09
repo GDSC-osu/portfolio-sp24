@@ -1,14 +1,69 @@
-import { Stack, Container, Grid, Typography, Button, IconButton } from "@mui/material";
+import { Stack, Container, Grid, Typography, Button, IconButton, Modal, Input } from "@mui/material";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import content from '../content.json'
 
+import {login, signout} from '../backend/auth_helper'
+import {useState} from 'react'
+
 function LandingPage() {
+
+  const [authFlow, setAuthFlow] = useState({
+    status: 'idle',
+    email: '',
+    password: '',
+    error: ''
+  })
+
+  const handleLoginClick = () => {
+    setAuthFlow({
+      ...authFlow,
+      status: 'login'
+    })
+  }
+
+  const handleSignout = () => {
+    try{
+      signout().then(() => {
+        setAuthFlow({
+          ...authFlow,
+          status: 'idle'
+        })
+      })
+    }catch (e){
+      console.log(e.message)
+    }
+  }
+
+  const handleLogin = () => {
+    const {email, password} = authFlow
+    if (email.length ==0 || password.length == 0) {
+      setAuthFlow({
+        ...authFlow,
+        error: 'Email and password cannot be empty'
+      })
+      return
+    }
+
+    try{
+      login(email, password).then(() => {
+        setAuthFlow({
+          ...authFlow,
+          status: 'authenticated'
+        })
+      })
+    }catch (e){
+      setAuthFlow({
+        ...authFlow,
+        error: e.message
+      })
+    }
+  }
 
   return (
     /* A container is just a div with some padding/maxWidth. Useful for consistently centering content */
     <Container>
-      {/* 
+      {/*  
         The Grid layout simply cuts up the space into 12 spaces where each grid item can choose to span
         https://mui.com/material-ui/react-grid/
       */}
@@ -63,6 +118,35 @@ function LandingPage() {
       <Typography variant="h3">
         Recent Posts
       </Typography>
+      {authFlow.status == 'authenticated' ? (
+        <Container>
+          <Typography variant="body1">You are signed in</Typography>
+          <Button variant='text' onClick={() => handleSignout()}>Sign out</Button>
+        </Container>
+      ) : (
+        <Container>
+          <Typography variant="body1">You are signed out</Typography>
+          <Button variant='text' onClick={() => handleLoginClick()}>Login</Button>
+        </Container>
+      )}
+
+      <Modal
+        open={authFlow.status == 'login'}
+        onClose={() => setAuthFlow({...authFlow, status: 'idle'})}
+      >
+        <Container style={{width: 500, height: 800, backgroundColor: 'lightgrey', marginTop: 50, borderRadius: 15}}>
+          <Stack justifyContent={'center'} alignItems={'center'} height={'100%'}>
+            <Button variant='text' onClick={() => setAuthFlow({...authFlow, status: 'idle'})}>x</Button>
+            <Typography variant='h3'>
+              Sign in 
+            </Typography>
+            {authFlow.error && <Typography variant='body1' color='error'>{authFlow.error}</Typography>}
+            <Input type='text' onChange={(e) => {setAuthFlow({...authFlow, email: e.target.value})}} placeholder='email' style={{marginTop: 20, marginBottom: 10}}/>
+            <Input type='password' onChange={(e) => {setAuthFlow({...authFlow, password: e.target.value})}} placeholder='password' style={{marginTop: 10, marginBottom: 20}} />
+            <Button variant='contained' style={{marginTop: 10}} onClick={() => {handleLogin()}}>Login</Button>
+          </Stack>
+        </Container>
+      </Modal>
     </Container>
   );
 }
