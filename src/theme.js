@@ -45,7 +45,8 @@ const typographyChanges = {
   },
   h6: {
     fontSize: '1.25rem',
-    ...headerOptions
+    ...headerOptions,
+    fontWeight: '600'
   },
   navbar: {
     fontWeight: '600',
@@ -55,5 +56,20 @@ const typographyChanges = {
 
 export default responsiveFontSizes(createTheme({
   palette: palletChanges,
-  typography: typographyChanges
+  typography: typographyChanges,
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: "#FFFFFF",
+          backgroundImage: `linear-gradient(180deg, #FFFFFF 0%, #777777 100%)`,
+          backgroundRepeat: 'no-repeat',
+          minHeight: '100vh',
+          margin: 0,
+          padding: 0,
+        },
+      },
+    },
+  }
+
 }));

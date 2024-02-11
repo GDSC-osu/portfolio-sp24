@@ -9,7 +9,7 @@ import Contact from './pages/Contact'
 
 //firebase imports
 import { initializeApp } from "firebase/app";
-import { initializeAuth } from "firebase/auth";
+import { initializeAuth} from "firebase/auth";
   
 
 function App() {
