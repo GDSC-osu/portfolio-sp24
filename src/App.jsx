@@ -10,6 +10,7 @@ import Contact from './pages/Contact'
 //firebase imports
 import { initializeApp } from "firebase/app";
 import { initializeAuth} from "firebase/auth";
+import { AuthenticationContextProvider } from './components/AuthenticationContext'
   
 
 function App() {
@@ -31,16 +32,17 @@ function App() {
       
       {/* CssBaseline simply imports css that normalizes all the browsers to look similarly */}
       <CssBaseline />
-
-      {/* BrowserRouter wraps the content that should change based on path or should be able to navigate between paths */}
-      <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<LandingPage/>} />
-          <Route path="/experiences" element={<ExperiencesPage/>} />
-          <Route path="/contact" element={<Contact/>} />
-        </Routes>
-      </BrowserRouter>
+      <AuthenticationContextProvider>
+        {/* BrowserRouter wraps the content that should change based on path or should be able to navigate between paths */}
+        <BrowserRouter>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<LandingPage/>} />
+            <Route path="/experiences" element={<ExperiencesPage/>} />
+            <Route path="/contact" element={<Contact/>} />
+          </Routes>
+        </BrowserRouter>
+      </AuthenticationContextProvider>
     </ThemeProvider>
   )
 }
