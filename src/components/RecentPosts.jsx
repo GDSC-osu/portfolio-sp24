@@ -1,12 +1,25 @@
 import { useContext, useEffect, useState } from "react"
 import { addPost, readPosts } from "../backend/db_helper"
-import { Button, Card, Container, TextField, Typography, useTheme } from "@mui/material"
+import { Button, Card, Container, TextField, Typography, styled, useTheme } from "@mui/material"
 import { AuthenticationContext } from "./AuthenticationContext";
 
 function CustomCard({children}) {
   const theme = useTheme();
   return (<Card sx={{background: theme.palette.primary.pastel, p: 3, pl: 5, borderRadius: 4, m: 2}}>{children}</Card>);
 }
+
+function LightTypography({style, ...props}) {
+  return (<Typography style={{color:"whitesmoke", ...style}} {...props} />);
+}
+
+const InheritTextField = styled(TextField)`
+* {
+  color: inherit !important;
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  font-size: inherit !important;
+}
+`
 
 function RecentPosts() {
   const {authentication} = useContext(AuthenticationContext);
@@ -53,43 +66,27 @@ function RecentPosts() {
     }
   }
 
-  const theme = useTheme();
   return (
     <Container>
       {authentication.status == 'authenticated' && (
         <CustomCard>
-          <Typography variant="h6" style={{color: 'whitesmoke'}} align='center'>Write a new post!</Typography>
+          <LightTypography variant="h6" align='center'>Write a new post!</LightTypography>
           {newPost.error && (<Typography variant="h6">{newPost.error}</Typography>)}
-          <Typography as={"div"} variant="h5" style={{color: 'whitesmoke'}}>
-            <TextField variant="standard" placeholder="Add Title"
+          <LightTypography as={"div"} variant="h5">
+            <InheritTextField variant="standard" placeholder="Add Title"
               onChange={(e) => {setNewPost({...newPost, title: e.target.value})}}
-              sx={{
-                  "*": {
-                    color: 'inherit !important',
-                    fontFamily: 'inherit !important',
-                    fontWeight: 'inherit !important',
-                    fontSize: 'inherit !important'
-                  }
-                }}
             />
-          </Typography>
-          <Typography variant="h6" style={{color: 'whitesmoke'}}>Today</Typography>
-          <Typography as={"div"} variant="body1" mb={0.5} style={{color: 'whitesmoke'}}>
-            <TextField
+          </LightTypography>
+          <LightTypography variant="h6">Today</LightTypography>
+          <LightTypography as={"div"} variant="body1" mb={0.5}>
+            <InheritTextField
               onChange={(e) => {setNewPost({...newPost, content: e.target.value})}}
               fullWidth
               multiline
               placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
               variant="standard"
-              sx={{
-                "*": {
-                  color: 'inherit !important',
-                  fontFamily: 'inherit',
-                  fontWeight: 'inherit',
-                  fontSize: 'inherit'
-                  }}}
             />
-          </Typography>
+          </LightTypography>
           <Button variant="contained" fullWidth onClick={() => submitPost()}>
             Post
           </Button>
@@ -98,9 +95,9 @@ function RecentPosts() {
       {posts && posts.map((post, index) => {
         return (
           <CustomCard key={index}>
-            <Typography variant="h5" mb={0.5} style={{color: 'whitesmoke'}}>{post.title}</Typography>
-            <Typography variant="h6" mb={0.5} style={{color: 'whitesmoke'}}>{`${post.month}/${post.day}/${post.year}`}</Typography>
-            <Typography variant="body1" style={{color: 'whitesmoke'}}>{post.content}</Typography>
+            <LightTypography variant="h5" mb={0.5}>{post.title}</LightTypography>
+            <LightTypography variant="h6" mb={0.5}>{`${post.month}/${post.day}/${post.year}`}</LightTypography>
+            <LightTypography variant="body1">{post.content}</LightTypography>
           </CustomCard>
         )
       })}
