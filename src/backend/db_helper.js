@@ -4,7 +4,7 @@ export const addPost = async(posts, title, content, month, day, year) => {
     const db = getFirestore();
 
     await setDoc(doc(db, "posts", "main"), {
-        "posts": [...posts, {title, content, month, day, year}]
+        "posts": [{title, content, month, day, year}, ...posts]
     });
 }
 

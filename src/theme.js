@@ -7,8 +7,10 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 
 // https://mui.com/material-ui/customization/palette/
 const PRIMARY_COLOR = '#BA0000';
+const PRIMARY_COLOR_PASTEL = '#A0616A';
 const palletChanges = {
   primary: {
+    pastel: PRIMARY_COLOR_PASTEL,
     500: PRIMARY_COLOR
   }
 };

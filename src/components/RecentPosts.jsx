@@ -1,8 +1,12 @@
 import { useContext, useEffect, useState } from "react"
 import { addPost, readPosts } from "../backend/db_helper"
-import { Box, Button, Container, Input, Typography } from "@mui/material"
+import { Button, Card, Container, TextField, Typography, useTheme } from "@mui/material"
 import { AuthenticationContext } from "./AuthenticationContext";
 
+function CustomCard({children}) {
+  const theme = useTheme();
+  return (<Card sx={{background: theme.palette.primary.pastel, p: 3, pl: 5, borderRadius: 4, m: 2}}>{children}</Card>);
+}
 
 function RecentPosts() {
   const {authentication} = useContext(AuthenticationContext);
@@ -39,7 +43,7 @@ function RecentPosts() {
           title: '',
           content: '',
         })
-        setPosts([...posts, {title: newPost.title, content: newPost.content, month: date.getMonth(), day: date.getDate(), year: date.getFullYear()}])
+        setPosts([{title: newPost.title, content: newPost.content, month: date.getMonth(), day: date.getDate(), year: date.getFullYear()}, ...posts])
       })
     }catch (e){
       setNewPost({
@@ -49,34 +53,55 @@ function RecentPosts() {
     }
   }
 
+  const theme = useTheme();
   return (
-    <Container fluid>
+    <Container>
       {authentication.status == 'authenticated' && (
-      <Box border={3} borderRadius={5} borderColor={"#A0616A"} paddingTop={2} sx={{width: '100%',maxWidth: '100%'}}>
-          <Typography variant="h6" style={{color: 'whitesmoke'}}>Write a new post!</Typography>
-          {newPost.error && (<Typography variant="body1" color='error'>{newPost.error}</Typography>)}
-          <Box sx={{display:'inline-flex', alignItems: 'center', gap: 5, width:'100%', maxWidth: '100%', marginTop: 5}}>
-            <Typography variant="body1" style={{color: 'white'}}>Title:</Typography>
-            <Input type='text' value={newPost.title} onChange={(e) => {setNewPost({...newPost, title: e.target.value})}} disableUnderline placeholder='ex... Job Update' style={{backgroundColor: 'white', borderRadius: 10, padding: 10, width: '40%'}}/>
-          </Box>
-          <Box sx={{display:'inline-flex', alignItems: 'center', gap: 5, width:'100%', maxWidth: '100%', marginTop: 5, marginBottom: 5}}>
-            <Typography variant="body1" style={{color: 'white'}}>Content:</Typography>
-            <Input type='text' value={newPost.content} onChange={(e) => {setNewPost({...newPost, content: e.target.value})}} disableUnderline multiline placeholder="ex... I'm happy to announce ..." style={{backgroundColor: 'white', borderRadius: 10, padding: 15, width: '90%', verticalAlign: 'top'}}/>
-          </Box>
-          <Box sx={{width: '100%', maxWidth: '100%', display: 'inline-flex', flexDirection:'row-reverse'}}>
-            <Button onClick={() => submitPost()} variant='contained' style={{backgroundColor: '#323232', color: 'white', paddingLeft: 50, paddingRight: 50, paddingTop: 15, paddingBottom: 15, marginBottom: 20}}>Post</Button>
-          </Box>
-      </Box>
+        <CustomCard>
+          <Typography variant="h6" style={{color: 'whitesmoke'}} align='center'>Write a new post!</Typography>
+          {newPost.error && (<Typography variant="h6">{newPost.error}</Typography>)}
+          <Typography as={"div"} variant="h5" style={{color: 'whitesmoke'}}>
+            <TextField variant="standard" placeholder="Add Title"
+              onChange={(e) => {setNewPost({...newPost, title: e.target.value})}}
+              sx={{
+                  "*": {
+                    color: 'inherit !important',
+                    fontFamily: 'inherit !important',
+                    fontWeight: 'inherit !important',
+                    fontSize: 'inherit !important'
+                  }
+                }}
+            />
+          </Typography>
+          <Typography variant="h6" style={{color: 'whitesmoke'}}>Today</Typography>
+          <Typography as={"div"} variant="body1" mb={0.5} style={{color: 'whitesmoke'}}>
+            <TextField
+              onChange={(e) => {setNewPost({...newPost, content: e.target.value})}}
+              fullWidth
+              multiline
+              placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+              variant="standard"
+              sx={{
+                "*": {
+                  color: 'inherit !important',
+                  fontFamily: 'inherit',
+                  fontWeight: 'inherit',
+                  fontSize: 'inherit'
+                  }}}
+            />
+          </Typography>
+          <Button variant="contained" fullWidth onClick={() => submitPost()}>
+            Post
+          </Button>
+        </CustomCard>
       )}
       {posts && posts.map((post, index) => {
         return (
-          <Box key={index} borderRadius={5} sx={{backgroundColor: "#A0616A", width: '90%',maxWidth: '90%', margin: 2, padding: 2}}>
-            <Container>
-              <Typography variant="h5" style={{color: 'whitesmoke', marginBottom: 1}}>{post.title}</Typography>
-              <Typography variant="h6" style={{color: 'whitesmoke', marginBottom: 3}}>{post.month + "/" + post.day + "/" + post.year}</Typography>
-              <Typography variant="body1" style={{color: 'whitesmoke', marginBottom: 1}}>{post.content}</Typography>
-            </Container>
-          </Box>
+          <CustomCard key={index}>
+            <Typography variant="h5" mb={0.5} style={{color: 'whitesmoke'}}>{post.title}</Typography>
+            <Typography variant="h6" mb={0.5} style={{color: 'whitesmoke'}}>{`${post.month}/${post.day}/${post.year}`}</Typography>
+            <Typography variant="body1" style={{color: 'whitesmoke'}}>{post.content}</Typography>
+          </CustomCard>
         )
       })}
     </Container>
