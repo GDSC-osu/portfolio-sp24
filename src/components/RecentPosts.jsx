@@ -77,7 +77,7 @@ function RecentPosts() {
               onChange={(e) => {setNewPost({...newPost, title: e.target.value})}}
             />
           </LightTypography>
-          <LightTypography variant="h6">Today</LightTypography>
+          <LightTypography variant="h6">{new Date().getMonth() + "/" + new Date().getDate() + "/" + new Date().getFullYear()}</LightTypography>
           <LightTypography as={"div"} variant="body1" mb={0.5}>
             <InheritTextField
               onChange={(e) => {setNewPost({...newPost, content: e.target.value})}}
@@ -87,7 +87,7 @@ function RecentPosts() {
               variant="standard"
             />
           </LightTypography>
-          <Button variant="contained" fullWidth onClick={() => submitPost()}>
+          <Button variant="contained" style={{backgroundColor: "white", color: 'black'}} fullWidth onClick={() => submitPost()}>
             Post
           </Button>
         </CustomCard>
