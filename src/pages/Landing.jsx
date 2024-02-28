@@ -4,16 +4,12 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import content from '../content.json'
 
 import {login, signout} from '../backend/auth_helper'
-import {useState} from 'react'
+import {useContext} from 'react'
+import RecentPosts from "../components/RecentPosts";
+import { AuthenticationContext } from "../components/AuthenticationContext";
 
 function LandingPage() {
-
-  const [authFlow, setAuthFlow] = useState({
-    status: 'idle',
-    email: '',
-    password: '',
-    error: ''
-  })
+  const {authentication: authFlow, setAuthentication: setAuthFlow} = useContext(AuthenticationContext);
 
   const handleLoginClick = () => {
     setAuthFlow({
@@ -120,21 +116,21 @@ function LandingPage() {
       </Typography>
       {authFlow.status == 'authenticated' ? (
         <Container>
-          <Typography variant="body1">You are signed in</Typography>
           <Button variant='text' onClick={() => handleSignout()}>Sign out</Button>
         </Container>
       ) : (
         <Container>
-          <Typography variant="body1">You are signed out</Typography>
           <Button variant='text' onClick={() => handleLoginClick()}>Login</Button>
         </Container>
       )}
+
+      <RecentPosts/>
 
       <Modal
         open={authFlow.status == 'login'}
         onClose={() => setAuthFlow({...authFlow, status: 'idle'})}
       >
-        <Container style={{width: 500, height: 800, backgroundColor: 'lightgrey', marginTop: 50, borderRadius: 15}}>
+        <Container style={{width: 500, height: 800, maxWidth:'90%', backgroundColor: 'lightgrey', marginTop: 50, borderRadius: 15}}>
           <Stack justifyContent={'center'} alignItems={'center'} height={'100%'}>
             <Button variant='text' onClick={() => setAuthFlow({...authFlow, status: 'idle'})}>x</Button>
             <Typography variant='h3'>

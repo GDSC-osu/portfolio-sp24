@@ -7,8 +7,10 @@ import { createTheme, responsiveFontSizes } from "@mui/material";
 
 // https://mui.com/material-ui/customization/palette/
 const PRIMARY_COLOR = '#BA0000';
+const PRIMARY_COLOR_PASTEL = '#A0616A';
 const palletChanges = {
   primary: {
+    pastel: PRIMARY_COLOR_PASTEL,
     500: PRIMARY_COLOR
   }
 };
@@ -45,7 +47,8 @@ const typographyChanges = {
   },
   h6: {
     fontSize: '1.25rem',
-    ...headerOptions
+    ...headerOptions,
+    fontWeight: '600'
   },
   navbar: {
     fontWeight: '600',
@@ -55,5 +58,20 @@ const typographyChanges = {
 
 export default responsiveFontSizes(createTheme({
   palette: palletChanges,
-  typography: typographyChanges
+  typography: typographyChanges,
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: "#FFFFFF",
+          backgroundImage: `linear-gradient(180deg, #FFFFFF 0%, #777777 100%)`,
+          backgroundRepeat: 'no-repeat',
+          minHeight: '100vh',
+          margin: 0,
+          padding: 0,
+        },
+      },
+    },
+  }
+
 }));
